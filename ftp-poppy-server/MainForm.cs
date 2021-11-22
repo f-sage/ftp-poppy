@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SharpServer;
+using SharpServer.Ftp;
 
 namespace ftp_poppy_server
 {
@@ -99,7 +101,7 @@ namespace ftp_poppy_server
             if (Directory.Exists(folderPath))
             {
                 SetupFileWatcher(folderPath);
-                ftpServer = new FtpServer(folderPath, port);
+                ftpServer = new FtpServer(port);
                 
             }
             else
@@ -107,7 +109,7 @@ namespace ftp_poppy_server
                 throw new DirectoryNotFoundException($"Такої директорії не існує:\r\n{folderPath}");
             }
             //RUN
-            ftpServer.Run();
+            ftpServer.Start();
             logger.Log($"Server is running. Directory: \"{ folderPath}\"; port: {port}");
             serverRunning = true;
         }
