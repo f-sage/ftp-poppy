@@ -20,9 +20,11 @@ namespace ftp_poppy_server
 
             this.mainForm = mainForm;
             //if item empty
-            if (mainForm.cmbGroup.SelectedItem.ToString() == "")
+            if (mainForm.cmbGroup.SelectedItem == null
+                || string.IsNullOrEmpty(mainForm.cmbGroup.SelectedItem.ToString()))
             {
                 this.Text = "Нова група";
+                this.btnDeleteGroup.Visible = false;
             }
             //if not empty
             else
@@ -55,10 +57,12 @@ namespace ftp_poppy_server
                 return;
             }
             //add to list
+            GroupPreset group;
             //if item empty
-            if (mainForm.cmbGroup.SelectedItem.ToString() == "")
+            if (mainForm.cmbGroup.SelectedItem == null ||
+                mainForm.cmbGroup.SelectedItem.ToString() == "")
             {
-                GroupPreset group = new GroupPreset();
+                group = new GroupPreset();
                 group.GroupName = tbGroupName.Text;
                 group.GroupDirectory = tbGroupDir.Text;
                 mainForm.loadedGroups.groups.Add(group);
@@ -66,14 +70,32 @@ namespace ftp_poppy_server
             //if not empty
             else
             {
-                GroupPreset group = mainForm.loadedGroups.groups.
+                group = mainForm.loadedGroups.groups.
                        Single(x=>x.GroupName==mainForm.cmbGroup.SelectedItem);
                 group.GroupName = tbGroupName.Text;
                 group.GroupDirectory = tbGroupDir.Text;
             }
             mainForm.cmbGroupsUpdate();
             mainForm.loadedGroupsUpdate();
+            mainForm.cmbGroup.SelectedItem = group.GroupName;
             this.Close();
+        }
+
+        private void btnDeleteGroup_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = 
+                MessageBox.Show("Дійсно видалити цю групу?", "Видалення", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                GroupPreset group = mainForm.loadedGroups.groups.
+                      Single(x => x.GroupName == mainForm.
+                            cmbGroup.SelectedItem.ToString());
+                mainForm.loadedGroups.groups.Remove(group);
+                mainForm.cmbGroupsUpdate();
+                mainForm.loadedGroupsUpdate();
+                mainForm.cmbGroup.SelectedItem = "";
+                Close();
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ namespace ftp_poppy_server
             this.tbGroupDir = new System.Windows.Forms.TextBox();
             this.btnGroupDir = new System.Windows.Forms.Button();
             this.fbdGroupDir = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnDeleteGroup = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnDone
@@ -90,11 +91,22 @@ namespace ftp_poppy_server
             this.btnGroupDir.UseVisualStyleBackColor = true;
             this.btnGroupDir.Click += new System.EventHandler(this.btnGroupDir_Click);
             // 
+            // btnDeleteGroup
+            // 
+            this.btnDeleteGroup.Location = new System.Drawing.Point(12, 195);
+            this.btnDeleteGroup.Name = "btnDeleteGroup";
+            this.btnDeleteGroup.Size = new System.Drawing.Size(95, 53);
+            this.btnDeleteGroup.TabIndex = 6;
+            this.btnDeleteGroup.Text = "Видалити групу";
+            this.btnDeleteGroup.UseVisualStyleBackColor = true;
+            this.btnDeleteGroup.Click += new System.EventHandler(this.btnDeleteGroup_Click);
+            // 
             // GroupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 260);
+            this.Controls.Add(this.btnDeleteGroup);
             this.Controls.Add(this.btnGroupDir);
             this.Controls.Add(this.lblGroupDir);
             this.Controls.Add(this.tbGroupDir);
@@ -117,5 +129,6 @@ namespace ftp_poppy_server
         private System.Windows.Forms.TextBox tbGroupDir;
         private System.Windows.Forms.Button btnGroupDir;
         private System.Windows.Forms.FolderBrowserDialog fbdGroupDir;
+        private System.Windows.Forms.Button btnDeleteGroup;
     }
 }
