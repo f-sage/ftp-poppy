@@ -25,7 +25,7 @@ namespace SharpServer
         public bool IsAnonymous { get; set; }
     }
 
-    [Obsolete("This is not a real user store. It is just a stand-in for testing. DO NOT USE IN PRODUCTION CODE.")]
+    //[Obsolete("This is not a real user store. It is just a stand-in for testing. DO NOT USE IN PRODUCTION CODE.")]
     public static class FtpUserStore
     {
         private static List<FtpUser> _users;

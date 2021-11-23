@@ -22,40 +22,40 @@ namespace SharpServer
 
             return;
 
-            using (Server<SharpServer.Email.ImapClientConnection> imapServer = new Server<SharpServer.Email.ImapClientConnection>(143))
-            using (Server<SharpServer.Email.SmtpClientConnection> smtpServer = new Server<SharpServer.Email.SmtpClientConnection>(25))
-            {
-                smtpServer.Start();
-                imapServer.Start();
+            //using (Server<SharpServer.Email.ImapClientConnection> imapServer = new Server<SharpServer.Email.ImapClientConnection>(143))
+            //using (Server<SharpServer.Email.SmtpClientConnection> smtpServer = new Server<SharpServer.Email.SmtpClientConnection>(25))
+            //{
+            //    smtpServer.Start();
+            //    imapServer.Start();
 
-                Console.WriteLine("Press any key to stop...");
-                Console.ReadKey(true);
-            }
+            //    Console.WriteLine("Press any key to stop...");
+            //    Console.ReadKey(true);
+            //}
 
-            return;
+            //return;
 
-            using (Server<SharpServer.Email.Pop3ClientConnection> pop3server = new Server<SharpServer.Email.Pop3ClientConnection>(110))
-            using (Server<SharpServer.Email.SmtpClientConnection> smtpServer = new Server<SharpServer.Email.SmtpClientConnection>(25))
-            {
-                pop3server.Start();
-                smtpServer.Start();
+            //using (Server<SharpServer.Email.Pop3ClientConnection> pop3server = new Server<SharpServer.Email.Pop3ClientConnection>(110))
+            //using (Server<SharpServer.Email.SmtpClientConnection> smtpServer = new Server<SharpServer.Email.SmtpClientConnection>(25))
+            //{
+            //    pop3server.Start();
+            //    smtpServer.Start();
 
-                Console.WriteLine("Press any key to stop...");
-                Console.ReadKey(true);
-            }
+            //    Console.WriteLine("Press any key to stop...");
+            //    Console.ReadKey(true);
+            //}
 
 
-            return;
+            //return;
 
-            using (Server<SharpServer.Email.SmtpClientConnection> Server = new Server<SharpServer.Email.SmtpClientConnection>(25))
-            {
-                Server.Start();
+            //using (Server<SharpServer.Email.SmtpClientConnection> Server = new Server<SharpServer.Email.SmtpClientConnection>(25))
+            //{
+            //    Server.Start();
 
-                Console.WriteLine("Press any key to stop...");
-                Console.ReadKey(true);
-            }
+            //    Console.WriteLine("Press any key to stop...");
+            //    Console.ReadKey(true);
+            //}
 
-            return;
+            //return;
 
         }
 

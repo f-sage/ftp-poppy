@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using SharpServer;
 using SharpServer.Ftp;
 
@@ -20,12 +21,51 @@ namespace ftp_poppy_server
         FileSystemWatcher fileWatcher;
         FtpServer ftpServer;
         bool serverRunning;
+        public GroupList loadedGroups;
         public MainForm()
         {
             InitializeComponent();
             serverRunning = false;
             logger = new Logger(tbLog);
             logger.Log("New session: "+DateTime.Now.ToString("G"));
+            loadPresets();
+        }
+
+        private void loadPresets()
+        {
+            const string presetsFile = "presets.xml";
+            if (!File.Exists(presetsFile))
+            {
+                var file = File.Create(presetsFile);
+                file.Close();
+            }
+
+            // Construct an instance of the XmlSerializer with the type
+            // of object that is being deserialized.
+            var serializer = new XmlSerializer(typeof(GroupList));
+            // To read the file, create a FileStream.
+            using var fileStream = new FileStream(presetsFile, FileMode.Open);
+            // Call the Deserialize method and cast to the object type.
+            loadedGroups = (GroupList)serializer.Deserialize(fileStream);
+
+            cmbGroupsUpdate();
+        }
+
+        public void cmbGroupsUpdate()
+        {
+            cmbGroup.Items.Clear();
+            cmbGroup.Items.Insert(0, string.Empty);
+            cmbGroup.Items.AddRange(
+               loadedGroups.groups.Select(x => x.GroupName).ToArray());
+        }
+
+        public void loadedGroupsUpdate()
+        {
+            const string presetsFile = "presets.xml";
+            StreamWriter writer = new StreamWriter(presetsFile);
+            var tmp_serializer = new XmlSerializer(typeof(GroupList));
+            tmp_serializer.Serialize(writer.BaseStream, loadedGroups);
+            writer.Close();
         }
 
         private void btnPathChange_Click(object sender, EventArgs e)
@@ -102,7 +142,7 @@ namespace ftp_poppy_server
             {
                 SetupFileWatcher(folderPath);
                 ftpServer = new FtpServer(port);
-                
+               
             }
             else
             {
@@ -205,6 +245,27 @@ namespace ftp_poppy_server
                 string objectType =Directory.Exists(e.FullPath)?"Folder" :"File";
                 string value = $"{objectType} renamed: {e.Name}";
                 logger.Log(value);
+            }
+        }
+
+        private void btnAddGroup_Click(object sender, EventArgs e)
+        {
+            GroupForm groupForm = new GroupForm(this);
+            groupForm.ShowDialog();
+        }
+
+        private void cmbGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbGroup.SelectedItem == "") {
+                btnAddGroup.Text = "Нова група...";
+                tbPath.Text = "";
+            }
+            else
+            {
+                GroupPreset gr = loadedGroups.groups.Single(
+                    g => g.GroupName == (string)cmbGroup.SelectedItem);
+                btnAddGroup.Text = "Редагувати";
+                tbPath.Text = gr.GroupDirectory;
             }
         }
     }

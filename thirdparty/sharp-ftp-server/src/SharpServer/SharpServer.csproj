@@ -121,8 +121,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\two-factor\src\TwoFactor\TwoFactor.csproj">
-      <Project>{903279E1-4D47-4F18-A6F6-ED61EAAD8176}</Project>
+    <ProjectReference Include="..\..\two-factor\src\TwoFactor\TwoFactor.csproj">
+      <Project>{903279e1-4d47-4f18-a6f6-ed61eaad8176}</Project>
       <Name>TwoFactor</Name>
     </ProjectReference>
   </ItemGroup>
