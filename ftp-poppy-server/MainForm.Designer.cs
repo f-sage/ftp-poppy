@@ -41,7 +41,18 @@ namespace ftp_poppy_server
             this.lblGroup = new System.Windows.Forms.Label();
             this.cmbGroup = new System.Windows.Forms.ComboBox();
             this.btnAddGroup = new System.Windows.Forms.Button();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStartServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiStopServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiGroup = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiGroupList = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditGroup = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiUsers = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbLog
@@ -112,6 +123,7 @@ namespace ftp_poppy_server
             this.tbPath.Name = "tbPath";
             this.tbPath.Size = new System.Drawing.Size(335, 27);
             this.tbPath.TabIndex = 5;
+            this.tbPath.TextChanged += new System.EventHandler(this.tbPath_TextChanged);
             // 
             // btnPathChange
             // 
@@ -127,7 +139,7 @@ namespace ftp_poppy_server
             // 
             this.btnPathOpen.Location = new System.Drawing.Point(641, 119);
             this.btnPathOpen.Name = "btnPathOpen";
-            this.btnPathOpen.Size = new System.Drawing.Size(94, 48);
+            this.btnPathOpen.Size = new System.Drawing.Size(94, 50);
             this.btnPathOpen.TabIndex = 7;
             this.btnPathOpen.Text = "Відкрити папку";
             this.btnPathOpen.UseVisualStyleBackColor = true;
@@ -153,13 +165,93 @@ namespace ftp_poppy_server
             // 
             // btnAddGroup
             // 
-            this.btnAddGroup.Location = new System.Drawing.Point(417, 60);
+            this.btnAddGroup.Location = new System.Drawing.Point(386, 61);
             this.btnAddGroup.Name = "btnAddGroup";
-            this.btnAddGroup.Size = new System.Drawing.Size(94, 50);
+            this.btnAddGroup.Size = new System.Drawing.Size(94, 48);
             this.btnAddGroup.TabIndex = 10;
             this.btnAddGroup.Text = "Нова група...";
             this.btnAddGroup.UseVisualStyleBackColor = true;
             this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFile,
+            this.tsmiGroup,
+            this.tsmiUsers,
+            this.tsmiAbout});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(845, 28);
+            this.menuStrip.TabIndex = 11;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // tsmiFile
+            // 
+            this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiStartServer,
+            this.tsmiStopServer,
+            this.tsmiExit});
+            this.tsmiFile.Name = "tsmiFile";
+            this.tsmiFile.Size = new System.Drawing.Size(59, 24);
+            this.tsmiFile.Text = "Файл";
+            // 
+            // tsmiStartServer
+            // 
+            this.tsmiStartServer.Name = "tsmiStartServer";
+            this.tsmiStartServer.Size = new System.Drawing.Size(214, 26);
+            this.tsmiStartServer.Text = "Запустити сервер";
+            this.tsmiStartServer.Click += new System.EventHandler(this.tsmiStartServer_Click);
+            // 
+            // tsmiStopServer
+            // 
+            this.tsmiStopServer.Name = "tsmiStopServer";
+            this.tsmiStopServer.Size = new System.Drawing.Size(214, 26);
+            this.tsmiStopServer.Text = "Зупинити сервер";
+            this.tsmiStopServer.Click += new System.EventHandler(this.tsmiStopServer_Click);
+            // 
+            // tsmiExit
+            // 
+            this.tsmiExit.Name = "tsmiExit";
+            this.tsmiExit.Size = new System.Drawing.Size(214, 26);
+            this.tsmiExit.Text = "Вихід";
+            this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
+            // 
+            // tsmiGroup
+            // 
+            this.tsmiGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiGroupList,
+            this.tsmiEditGroup});
+            this.tsmiGroup.Name = "tsmiGroup";
+            this.tsmiGroup.Size = new System.Drawing.Size(63, 24);
+            this.tsmiGroup.Text = "Група";
+            // 
+            // tsmiGroupList
+            // 
+            this.tsmiGroupList.Name = "tsmiGroupList";
+            this.tsmiGroupList.Size = new System.Drawing.Size(271, 26);
+            this.tsmiGroupList.Text = "Список груп";
+            // 
+            // tsmiEditGroup
+            // 
+            this.tsmiEditGroup.Name = "tsmiEditGroup";
+            this.tsmiEditGroup.Size = new System.Drawing.Size(271, 26);
+            this.tsmiEditGroup.Text = "Редагувати поточну групу";
+            this.tsmiEditGroup.Click += new System.EventHandler(this.tsmiEditGroup_Click);
+            // 
+            // tsmiUsers
+            // 
+            this.tsmiUsers.Name = "tsmiUsers";
+            this.tsmiUsers.Size = new System.Drawing.Size(107, 24);
+            this.tsmiUsers.Text = "Користувачі";
+            this.tsmiUsers.Click += new System.EventHandler(this.tsmiUsers_Click);
+            // 
+            // tsmiAbout
+            // 
+            this.tsmiAbout.Name = "tsmiAbout";
+            this.tsmiAbout.Size = new System.Drawing.Size(124, 24);
+            this.tsmiAbout.Text = "Про програму";
             // 
             // MainForm
             // 
@@ -177,9 +269,13 @@ namespace ftp_poppy_server
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.nudPort);
             this.Controls.Add(this.tbLog);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "server";
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,6 +295,16 @@ namespace ftp_poppy_server
         private System.Windows.Forms.Label lblGroup;
         public System.Windows.Forms.ComboBox cmbGroup;
         private System.Windows.Forms.Button btnAddGroup;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem tsmiFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiGroup;
+        private System.Windows.Forms.ToolStripMenuItem tsmiUsers;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStartServer;
+        private System.Windows.Forms.ToolStripMenuItem tsmiStopServer;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiGroupList;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditGroup;
     }
 }
 

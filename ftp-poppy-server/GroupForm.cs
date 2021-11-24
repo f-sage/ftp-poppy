@@ -62,6 +62,13 @@ namespace ftp_poppy_server
             if (mainForm.cmbGroup.SelectedItem == null ||
                 mainForm.cmbGroup.SelectedItem.ToString() == "")
             {
+                var existingGroup = mainForm.loadedGroups.groups.
+                       FirstOrDefault(x => x.GroupName == tbGroupName.Text);
+                if (existingGroup!=null)
+                {
+                    MessageBox.Show("Група з такою назвою вже існує");
+                    return;
+                }
                 group = new GroupPreset();
                 group.GroupName = tbGroupName.Text;
                 group.GroupDirectory = tbGroupDir.Text;
@@ -71,7 +78,7 @@ namespace ftp_poppy_server
             else
             {
                 group = mainForm.loadedGroups.groups.
-                       Single(x=>x.GroupName==mainForm.cmbGroup.SelectedItem);
+                       Single(x=>x.GroupName==mainForm.cmbGroup.SelectedItem.ToString());
                 group.GroupName = tbGroupName.Text;
                 group.GroupDirectory = tbGroupDir.Text;
             }

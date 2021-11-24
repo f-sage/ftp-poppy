@@ -66,6 +66,7 @@
     <Compile Include="Ftp\FtpClientConnection.cs" />
     <Compile Include="ClientConnectionBase.cs" />
     <Compile Include="Ftp\FtpServer.cs" />
+    <Compile Include="HomeDirectory.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Ftp\FtpPerformanceCounters.cs" />
     <Compile Include="Helper.cs" />

@@ -22,28 +22,33 @@ namespace ftp_poppy_server
         FtpServer ftpServer;
         bool serverRunning;
         public GroupList loadedGroups;
+
         public MainForm()
         {
             InitializeComponent();
             serverRunning = false;
             logger = new Logger(tbLog);
             logger.Log("New session: "+DateTime.Now.ToString("G"));
-            loadPresets();
+            loadPresets();    
+            tbPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
         private void loadPresets()
         {
             const string presetsFile = "presets.xml";
-            if (!File.Exists(presetsFile))
-            {
-                var file = File.Create(presetsFile);
-                file.Close();
-            }
-
             // Construct an instance of the XmlSerializer with the type
             // of object that is being deserialized.
             var serializer = new XmlSerializer(typeof(GroupList));
             // To read the file, create a FileStream.
+            if (!File.Exists(presetsFile))
+            {
+                var file = File.Create(presetsFile);
+                file.Close();
+                var TmpFileStream = new FileStream(presetsFile, FileMode.Open);
+                serializer.Serialize(TmpFileStream, new GroupList());
+                TmpFileStream.Close();
+            }
+
             using var fileStream = new FileStream(presetsFile, FileMode.Open);
             // Call the Deserialize method and cast to the object type.
             loadedGroups = (GroupList)serializer.Deserialize(fileStream);
@@ -102,35 +107,44 @@ namespace ftp_poppy_server
         {
             if (!serverRunning)
             {
-                //Start:
-                //run server
-                try
-                {
-                    RunServer();
-                }
-                catch(Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                    return;
-                }
-                //block settings pane if successful
-                //change text
-                btnStartStop.Text = "Закрити сервер";
+                RunServer();
             }
             else
             {
-                //Stop:              
-                //stop server
                 StopServer();
-                //enable settings pane if successful
-                //change text
-                btnStartStop.Text = "Запустити сервер";
             }
         }
 
-        void RunServer()
+        /// <summary>
+        /// Used by event handlers, throws no exceptions
+        /// </summary>
+        void RunServer() {
+            //Start:
+            //run server
+            try
+            {
+                HomeDirectory.Value = tbPath.Text;
+                runServer();
+            }
+            catch (Exception exc)
+            {
+                logger.Log("Could not start: " + exc.Message);
+                MessageBox.Show(exc.Message);
+                return;
+            }
+            //block settings pane if successful
+            //change text
+            btnStartStop.Text = "Закрити сервер";
+            tsmiStartServer.Enabled = false;
+            tsmiStopServer.Enabled = true;
+        }
+
+        /// <summary>
+        /// Used by RunServer, may throw DirectoryNotFoundException
+        /// </summary>
+        void runServer()
         {
-            //logger.Log("Attempt to run the server");
+            logger.Log("Starting the server...");
             //pass directory path and port to server
             ushort port = (ushort)nudPort.Value;
             string folderPath = tbPath.Text;
@@ -153,7 +167,19 @@ namespace ftp_poppy_server
             logger.Log($"Server is running. Directory: \"{ folderPath}\"; port: {port}");
             serverRunning = true;
         }
-        void StopServer()
+
+        void StopServer() {
+            //Stop:              
+            //stop server
+            stopServer();
+            //enable settings pane if successful
+            //change text
+            btnStartStop.Text = "Запустити сервер";
+            tsmiStartServer.Enabled = true;
+            tsmiStopServer.Enabled = false;
+        }
+
+        void stopServer()
         {
             //logger.Log("Stopping the server");
             ftpServer.Stop();
@@ -256,7 +282,7 @@ namespace ftp_poppy_server
 
         private void cmbGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbGroup.SelectedItem == "") {
+            if (cmbGroup.SelectedItem.ToString() == "") {
                 btnAddGroup.Text = "Нова група...";
                 tbPath.Text = "";
             }
@@ -267,6 +293,37 @@ namespace ftp_poppy_server
                 btnAddGroup.Text = "Редагувати";
                 tbPath.Text = gr.GroupDirectory;
             }
+        }
+
+        private void tsmiStartServer_Click(object sender, EventArgs e)
+        {
+            RunServer();
+        }
+
+        private void tsmiStopServer_Click(object sender, EventArgs e)
+        {
+            StopServer();
+        }
+
+        private void tsmiExit_Click(object sender, EventArgs e)
+        {
+            if (serverRunning) StopServer();
+            Close();
+        }
+
+        private void tsmiEditGroup_Click(object sender, EventArgs e)
+        {
+            btnAddGroup_Click(sender, e);
+        }
+
+        private void tsmiUsers_Click(object sender, EventArgs e)
+        {
+            new UsersForm(!serverRunning).ShowDialog();
+        }
+
+        private void tbPath_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

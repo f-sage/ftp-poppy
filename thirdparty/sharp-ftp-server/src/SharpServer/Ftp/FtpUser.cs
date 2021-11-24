@@ -15,8 +15,16 @@ namespace SharpServer
         [XmlAttribute("password")]
         public string Password { get; set; }
 
-        [XmlAttribute("homedir")]
-        public string HomeDir { get; set; }
+        public string HomeDir
+        {
+            get
+            {
+                 return Path.Combine(HomeDirectory.Value, Folder);
+            }
+        }
+
+        [XmlAttribute("folder")]
+        public string Folder { get; set; }
 
         [XmlAttribute("twofactorsecret")]
         public string TwoFactorSecret { get; set; }
@@ -25,10 +33,48 @@ namespace SharpServer
         public bool IsAnonymous { get; set; }
     }
 
-    //[Obsolete("This is not a real user store. It is just a stand-in for testing. DO NOT USE IN PRODUCTION CODE.")]
+    //a static container for all the users retrieved from xml
     public static class FtpUserStore
     {
-        private static List<FtpUser> _users;
+        static List<FtpUser> _users;
+        public static List<FtpUser> Users { get { return _users; } }
+
+        /// <summary>
+        /// Adds an FtpUser to the current loaded userbase.
+        /// Use Update() to same the changes to the XML file.
+        /// </summary>
+        /// <param name="user"></param>
+        public static void AddUser(FtpUser user)
+        {
+            var existingUser = _users.FirstOrDefault(x=>x.UserName==user.UserName);
+            if (existingUser != null)
+            {
+                throw new ArgumentException("User with that name already exists.");
+            }
+            else
+            {
+                _users.Add(user);
+            }
+        }
+        public static void RemoveUser(FtpUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Fills the XML file with the current user list.
+        /// </summary>
+        public static void Update()
+        {
+            XmlSerializer serializer = new XmlSerializer(_users.GetType(), 
+                new XmlRootAttribute("Users"));
+
+            using (StreamWriter w = new StreamWriter("users.xml"))
+            {
+                serializer.Serialize(w, _users);
+                w.Close();
+            }
+        }
 
         static FtpUserStore()
         {
@@ -38,20 +84,24 @@ namespace SharpServer
 
             if (File.Exists("users.xml"))
             {
-                _users = serializer.Deserialize(new StreamReader("users.xml")) as List<FtpUser>;
+                var streamreader = new StreamReader("users.xml");
+                _users = serializer.Deserialize(streamreader) as List<FtpUser>;
+                streamreader.Close();
             }
             else
             {
+                //create a file!!
                 _users.Add(new FtpUser
                 {
                     UserName = "test",
                     Password = "test",
-                    HomeDir = @"C:\Users\Salvia\Pictures"
+                    Folder = "aboba"
                 });
 
                 using (StreamWriter w = new StreamWriter("users.xml"))
                 {
                     serializer.Serialize(w, _users);
+                    w.Close();
                 }
             }
         }
@@ -65,7 +115,7 @@ namespace SharpServer
                 user = new FtpUser
                 {
                     UserName = username,
-                    HomeDir = @"C:\Users\Salvia\Pictures",
+                    Folder = "task",
                     IsAnonymous = true
                 };
             }
