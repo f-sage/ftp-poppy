@@ -51,8 +51,10 @@ namespace ftp_poppy_server
             this.tsmiEditGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiUsers = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnSettings = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).BeginInit();
             this.menuStrip.SuspendLayout();
+            this.pnSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbLog
@@ -67,7 +69,7 @@ namespace ftp_poppy_server
             // 
             // nudPort
             // 
-            this.nudPort.Location = new System.Drawing.Point(165, 181);
+            this.nudPort.Location = new System.Drawing.Point(149, 143);
             this.nudPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -102,7 +104,7 @@ namespace ftp_poppy_server
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(98, 183);
+            this.lblPort.Location = new System.Drawing.Point(82, 145);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(47, 20);
             this.lblPort.TabIndex = 3;
@@ -111,7 +113,7 @@ namespace ftp_poppy_server
             // lblPath
             // 
             this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(32, 134);
+            this.lblPath.Location = new System.Drawing.Point(16, 96);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(116, 20);
             this.lblPath.TabIndex = 4;
@@ -119,7 +121,7 @@ namespace ftp_poppy_server
             // 
             // tbPath
             // 
-            this.tbPath.Location = new System.Drawing.Point(165, 131);
+            this.tbPath.Location = new System.Drawing.Point(149, 93);
             this.tbPath.Name = "tbPath";
             this.tbPath.Size = new System.Drawing.Size(335, 27);
             this.tbPath.TabIndex = 5;
@@ -127,7 +129,7 @@ namespace ftp_poppy_server
             // 
             // btnPathChange
             // 
-            this.btnPathChange.Location = new System.Drawing.Point(523, 119);
+            this.btnPathChange.Location = new System.Drawing.Point(507, 81);
             this.btnPathChange.Name = "btnPathChange";
             this.btnPathChange.Size = new System.Drawing.Size(94, 50);
             this.btnPathChange.TabIndex = 6;
@@ -137,7 +139,7 @@ namespace ftp_poppy_server
             // 
             // btnPathOpen
             // 
-            this.btnPathOpen.Location = new System.Drawing.Point(641, 119);
+            this.btnPathOpen.Location = new System.Drawing.Point(625, 81);
             this.btnPathOpen.Name = "btnPathOpen";
             this.btnPathOpen.Size = new System.Drawing.Size(94, 50);
             this.btnPathOpen.TabIndex = 7;
@@ -148,7 +150,7 @@ namespace ftp_poppy_server
             // lblGroup
             // 
             this.lblGroup.AutoSize = true;
-            this.lblGroup.Location = new System.Drawing.Point(32, 75);
+            this.lblGroup.Location = new System.Drawing.Point(16, 37);
             this.lblGroup.Name = "lblGroup";
             this.lblGroup.Size = new System.Drawing.Size(52, 20);
             this.lblGroup.TabIndex = 8;
@@ -157,7 +159,7 @@ namespace ftp_poppy_server
             // cmbGroup
             // 
             this.cmbGroup.FormattingEnabled = true;
-            this.cmbGroup.Location = new System.Drawing.Point(165, 72);
+            this.cmbGroup.Location = new System.Drawing.Point(149, 34);
             this.cmbGroup.Name = "cmbGroup";
             this.cmbGroup.Size = new System.Drawing.Size(179, 28);
             this.cmbGroup.TabIndex = 9;
@@ -165,7 +167,7 @@ namespace ftp_poppy_server
             // 
             // btnAddGroup
             // 
-            this.btnAddGroup.Location = new System.Drawing.Point(386, 61);
+            this.btnAddGroup.Location = new System.Drawing.Point(370, 23);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(94, 48);
             this.btnAddGroup.TabIndex = 10;
@@ -253,21 +255,29 @@ namespace ftp_poppy_server
             this.tsmiAbout.Size = new System.Drawing.Size(124, 24);
             this.tsmiAbout.Text = "Про програму";
             // 
+            // pnSettings
+            // 
+            this.pnSettings.Controls.Add(this.btnAddGroup);
+            this.pnSettings.Controls.Add(this.cmbGroup);
+            this.pnSettings.Controls.Add(this.lblGroup);
+            this.pnSettings.Controls.Add(this.btnPathOpen);
+            this.pnSettings.Controls.Add(this.btnPathChange);
+            this.pnSettings.Controls.Add(this.tbPath);
+            this.pnSettings.Controls.Add(this.lblPath);
+            this.pnSettings.Controls.Add(this.lblPort);
+            this.pnSettings.Controls.Add(this.nudPort);
+            this.pnSettings.Location = new System.Drawing.Point(16, 38);
+            this.pnSettings.Name = "pnSettings";
+            this.pnSettings.Size = new System.Drawing.Size(791, 202);
+            this.pnSettings.TabIndex = 12;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(845, 546);
-            this.Controls.Add(this.btnAddGroup);
-            this.Controls.Add(this.cmbGroup);
-            this.Controls.Add(this.lblGroup);
-            this.Controls.Add(this.btnPathOpen);
-            this.Controls.Add(this.btnPathChange);
-            this.Controls.Add(this.tbPath);
-            this.Controls.Add(this.lblPath);
-            this.Controls.Add(this.lblPort);
+            this.Controls.Add(this.pnSettings);
             this.Controls.Add(this.btnStartStop);
-            this.Controls.Add(this.nudPort);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -276,6 +286,8 @@ namespace ftp_poppy_server
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.pnSettings.ResumeLayout(false);
+            this.pnSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,6 +317,7 @@ namespace ftp_poppy_server
         private System.Windows.Forms.ToolStripMenuItem tsmiExit;
         private System.Windows.Forms.ToolStripMenuItem tsmiGroupList;
         private System.Windows.Forms.ToolStripMenuItem tsmiEditGroup;
+        private System.Windows.Forms.Panel pnSettings;
     }
 }
 

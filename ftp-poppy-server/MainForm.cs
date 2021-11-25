@@ -67,6 +67,11 @@ namespace ftp_poppy_server
         public void loadedGroupsUpdate()
         {
             const string presetsFile = "presets.xml";
+            if (!File.Exists(presetsFile))
+            {
+                var file = File.Create(presetsFile);
+                file.Close();
+            }
             StreamWriter writer = new StreamWriter(presetsFile);
             var tmp_serializer = new XmlSerializer(typeof(GroupList));
             tmp_serializer.Serialize(writer.BaseStream, loadedGroups);
@@ -108,6 +113,7 @@ namespace ftp_poppy_server
             if (!serverRunning)
             {
                 RunServer();
+                
             }
             else
             {
@@ -133,6 +139,7 @@ namespace ftp_poppy_server
                 return;
             }
             //block settings pane if successful
+            pnSettings.Enabled = false;
             //change text
             btnStartStop.Text = "Закрити сервер";
             tsmiStartServer.Enabled = false;
@@ -173,6 +180,7 @@ namespace ftp_poppy_server
             //stop server
             stopServer();
             //enable settings pane if successful
+            pnSettings.Enabled = true;
             //change text
             btnStartStop.Text = "Запустити сервер";
             tsmiStartServer.Enabled = true;

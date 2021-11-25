@@ -58,7 +58,7 @@ namespace SharpServer
         }
         public static void RemoveUser(FtpUser user)
         {
-            throw new NotImplementedException();
+            _users.Remove(user);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace SharpServer
                 {
                     UserName = "test",
                     Password = "test",
-                    Folder = "aboba"
+                    Folder = "task"
                 });
 
                 using (StreamWriter w = new StreamWriter("users.xml"))

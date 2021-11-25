@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FubarDev.FtpServer" Version="3.1.2" />
-    <PackageReference Include="FubarDev.FtpServer.FileSystem.DotNet" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\thirdparty\sharp-ftp-server\src\SharpServer\SharpServer.csproj" />
   </ItemGroup>
 

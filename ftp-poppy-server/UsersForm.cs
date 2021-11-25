@@ -57,12 +57,13 @@ namespace ftp_poppy_server
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
             if(MessageBox.Show("Дійсно видалити користувача?",
-                            "Видалення", MessageBoxButtons.YesNo)==DialogResult.OK)
+                            "Видалення", MessageBoxButtons.YesNo)==DialogResult.Yes)
             {
                 FtpUserStore.RemoveUser(FtpUserStore.Users.FirstOrDefault(
                     x=>x.UserName==lbUsers.SelectedItem.ToString()));
-                updateListBox();
                 FtpUserStore.Update();
+                updateListBox();
+                lbUsers.SelectedIndex = 0;
             }
         }
 
