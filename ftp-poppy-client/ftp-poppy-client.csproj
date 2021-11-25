@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>ftp_poppy_client</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>poppy-client.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

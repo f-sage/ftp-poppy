@@ -283,7 +283,7 @@ namespace ftp_poppy_server
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
-            this.Text = "server";
+            this.Text = "FtpPoppy Server";
             ((System.ComponentModel.ISupportInitialize)(this.nudPort)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();

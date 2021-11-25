@@ -29,6 +29,7 @@ namespace ftp_poppy_client
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFormClient));
             this.pnDragDrop = new System.Windows.Forms.Panel();
             this.lblDragDrop = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
@@ -256,6 +257,7 @@ namespace ftp_poppy_client
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.pnDragDrop);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainFormClient";
             this.Text = "FtpPoppy Client";
