@@ -112,6 +112,7 @@ namespace ftp_poppy_server
         {
             if (!serverRunning)
             {
+                CreateUserFolders();
                 RunServer();
                 
             }
@@ -200,23 +201,16 @@ namespace ftp_poppy_server
         {
             fileWatcher = new FileSystemWatcher(folderPath);
 
-            fileWatcher.NotifyFilter =
-                                  //NotifyFilters.Attributes
-                                  //      | NotifyFilters.CreationTime
+            fileWatcher.NotifyFilter =                                 
                                   NotifyFilters.DirectoryName
                                  | NotifyFilters.FileName;
-                               //  | NotifyFilters.LastAccess
-                              //   | NotifyFilters.LastWrite
-                              //   | NotifyFilters.Security;
-                                // | NotifyFilters.Size;
+          
 
             fileWatcher.Created += OnCreated;
             fileWatcher.Deleted += OnDeleted;
             fileWatcher.Changed += OnChanged;
             fileWatcher.Renamed += OnRenamed;
 
-
-          //  fileWatcher.Filter = "*.txt";
             fileWatcher.IncludeSubdirectories = true;
             fileWatcher.EnableRaisingEvents = true;
         }
@@ -328,10 +322,23 @@ namespace ftp_poppy_server
         {
             new UsersForm(!serverRunning).ShowDialog();
         }
-
-        private void tbPath_TextChanged(object sender, EventArgs e)
+        
+        void CreateUserFolders()
         {
-
+            foreach(FtpUser user in FtpUserStore.Users)
+            {
+                if(!Directory.Exists(Path.Combine(tbPath.Text, user.Folder)))
+                {
+                    logger.Log($"Creating a folder \"{ user.Folder}\" for user {user.UserName}");
+                    Directory.CreateDirectory(Path.Combine(tbPath.Text, user.Folder));
+                }
+            }
+            if (!Directory.Exists(Path.Combine(tbPath.Text, "task")))
+            {
+                logger.Log($"Creating a folder \"task\"");
+                Directory.CreateDirectory(Path.Combine(tbPath.Text, "task"));
+            }
         }
+
     }
 }

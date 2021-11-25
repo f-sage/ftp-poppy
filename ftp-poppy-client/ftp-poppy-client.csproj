@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="35.2.0" />
-    <PackageReference Include="Syroot.Windows.IO.KnownFolders" Version="1.2.3" />
   </ItemGroup>
 
 </Project>

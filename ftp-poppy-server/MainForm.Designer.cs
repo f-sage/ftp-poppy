@@ -29,6 +29,7 @@ namespace ftp_poppy_server
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tbLog = new System.Windows.Forms.TextBox();
             this.fbdPath = new System.Windows.Forms.FolderBrowserDialog();
             this.nudPort = new System.Windows.Forms.NumericUpDown();
@@ -125,7 +126,6 @@ namespace ftp_poppy_server
             this.tbPath.Name = "tbPath";
             this.tbPath.Size = new System.Drawing.Size(335, 27);
             this.tbPath.TabIndex = 5;
-            this.tbPath.TextChanged += new System.EventHandler(this.tbPath_TextChanged);
             // 
             // btnPathChange
             // 
@@ -150,7 +150,7 @@ namespace ftp_poppy_server
             // lblGroup
             // 
             this.lblGroup.AutoSize = true;
-            this.lblGroup.Location = new System.Drawing.Point(16, 37);
+            this.lblGroup.Location = new System.Drawing.Point(77, 37);
             this.lblGroup.Name = "lblGroup";
             this.lblGroup.Size = new System.Drawing.Size(52, 20);
             this.lblGroup.TabIndex = 8;
@@ -280,6 +280,7 @@ namespace ftp_poppy_server
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "server";

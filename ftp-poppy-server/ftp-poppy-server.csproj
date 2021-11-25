@@ -6,6 +6,7 @@
     <RootNamespace>ftp_poppy_server</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>poppy1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

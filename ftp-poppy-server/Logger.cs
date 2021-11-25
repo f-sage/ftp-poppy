@@ -47,7 +47,7 @@ namespace ftp_poppy_server
 
         void writeToFile(string message)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
