@@ -28,6 +28,9 @@ namespace ftp_poppy_client
             settings = new ClientConnectionSettings();
             settings.GetFromFile();
             ftpClient = new FtpClient();
+
+            tbDownloadsPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            btnConnect_Click(new object(), new EventArgs());
         }
 
         void ConnectToServer()
@@ -166,5 +169,55 @@ namespace ftp_poppy_client
             GetFiles(ftpAnonClient, lbTaskFiles);
         }
 
+        void DownloadFiles(FtpClient client, List<string> filenames)
+        {
+            foreach(string file in filenames)
+            {
+                string filename = file.TrimStart('/');
+                FtpStatus result = client.DownloadFile(
+                    Path.Combine(tbDownloadsPath.Text, filename), file);
+                if (result == FtpStatus.Success)
+                {
+                    AddMessage($"Успішно отримано файл \"{file}\" з сервера");
+                }
+                else if(result == FtpStatus.Failed)
+                {
+                    AddMessage($"Не вдалося отримати файл \"{file}\" з сервера");
+                }
+            }
+        }
+
+        private void btnChangeDownloadsPath_Click(object sender, EventArgs e)
+        {
+            if (fbdDownloadsPath.ShowDialog() == DialogResult.OK)
+            {
+                tbDownloadsPath.Text = fbdDownloadsPath.SelectedPath;
+            }
+        }
+
+        private void btnDownloadAllTeacherFiles_Click(object sender, EventArgs e)
+        {
+            List<string> filenames = lbTaskFiles.Items.Cast<string>().ToList();
+            DownloadFiles(ftpAnonClient, filenames);
+        }
+
+
+        private void btnDownloadChosenTeacherFiles_Click(object sender, EventArgs e)
+        {
+            List<string> filenames = lbTaskFiles.SelectedItems.Cast<string>().ToList();
+            DownloadFiles(ftpAnonClient, filenames);
+        }
+
+        private void btnDownloadAllUserFiles_Click(object sender, EventArgs e)
+        {
+            List<string> filenames = lbUsersFiles.Items.Cast<string>().ToList();
+            DownloadFiles(ftpClient, filenames);
+        }
+
+        private void btnDownloadChosenUserFiles_Click(object sender, EventArgs e)
+        {
+            List<string> filenames = lbUsersFiles.SelectedItems.Cast<string>().ToList();
+            DownloadFiles(ftpClient, filenames);
+        }
     }
 }

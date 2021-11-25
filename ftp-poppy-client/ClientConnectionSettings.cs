@@ -36,13 +36,11 @@ namespace ftp_poppy_client
                 using (var filestream = new FileStream(settingsFile, FileMode.Open))
                 {
                     var serializer = new XmlSerializer(typeof(ClientConnectionSettings));
-                    serializer.Serialize(filestream, new ClientConnectionSettings
-                    {
-                        Username = "user",
-                        Password = "user",
-                        IP = "127.0.0.1",
-                        Port = 21
-                    });
+                    IP = "127.0.0.1";
+                    Username = "test";
+                    Password = "test";
+                    Port = 21;
+                    serializer.Serialize(filestream, this);
                 }
                 // filestream.Close();
             }

@@ -35,15 +35,19 @@ namespace ftp_poppy_client
             this.tsmiSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConnect = new System.Windows.Forms.Button();
             this.tbLog = new System.Windows.Forms.TextBox();
-            this.btnDownloadAll = new System.Windows.Forms.Button();
+            this.btnDownloadAllTeacherFiles = new System.Windows.Forms.Button();
             this.lbTaskFiles = new System.Windows.Forms.ListBox();
-            this.btnDownloadChosen = new System.Windows.Forms.Button();
+            this.btnDownloadChosenTeacherFiles = new System.Windows.Forms.Button();
             this.lbUsersFiles = new System.Windows.Forms.ListBox();
             this.lblTeachersFiles = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDownloadChosenUserFiles = new System.Windows.Forms.Button();
             this.btnDownloadAllUserFiles = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbDownloadsPath = new System.Windows.Forms.TextBox();
+            this.btnChangeDownloadsPath = new System.Windows.Forms.Button();
+            this.fbdDownloadsPath = new System.Windows.Forms.FolderBrowserDialog();
             this.pnDragDrop.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -53,9 +57,9 @@ namespace ftp_poppy_client
             this.pnDragDrop.AllowDrop = true;
             this.pnDragDrop.BackColor = System.Drawing.Color.MistyRose;
             this.pnDragDrop.Controls.Add(this.lblDragDrop);
-            this.pnDragDrop.Location = new System.Drawing.Point(589, 100);
+            this.pnDragDrop.Location = new System.Drawing.Point(677, 100);
             this.pnDragDrop.Name = "pnDragDrop";
-            this.pnDragDrop.Size = new System.Drawing.Size(324, 244);
+            this.pnDragDrop.Size = new System.Drawing.Size(250, 244);
             this.pnDragDrop.TabIndex = 2;
             this.pnDragDrop.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnDragDrop_DragDrop);
             this.pnDragDrop.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnDragDrop_DragEnter);
@@ -67,10 +71,10 @@ namespace ftp_poppy_client
             this.lblDragDrop.AutoSize = true;
             this.lblDragDrop.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDragDrop.ForeColor = System.Drawing.Color.Sienna;
-            this.lblDragDrop.Location = new System.Drawing.Point(18, 44);
-            this.lblDragDrop.MaximumSize = new System.Drawing.Size(350, 400);
+            this.lblDragDrop.Location = new System.Drawing.Point(6, 47);
+            this.lblDragDrop.MaximumSize = new System.Drawing.Size(250, 400);
             this.lblDragDrop.Name = "lblDragDrop";
-            this.lblDragDrop.Size = new System.Drawing.Size(287, 144);
+            this.lblDragDrop.Size = new System.Drawing.Size(244, 144);
             this.lblDragDrop.TabIndex = 0;
             this.lblDragDrop.Text = "Перетягніть файли сюди для завантаження на сервер";
             // 
@@ -81,7 +85,7 @@ namespace ftp_poppy_client
             this.tsmiSettings});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(939, 28);
+            this.menuStrip.Size = new System.Drawing.Size(945, 28);
             this.menuStrip.TabIndex = 3;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -94,7 +98,7 @@ namespace ftp_poppy_client
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(28, 481);
+            this.btnConnect.Location = new System.Drawing.Point(42, 557);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(118, 75);
             this.btnConnect.TabIndex = 4;
@@ -104,7 +108,7 @@ namespace ftp_poppy_client
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(289, 471);
+            this.tbLog.Location = new System.Drawing.Point(303, 547);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
@@ -112,47 +116,53 @@ namespace ftp_poppy_client
             this.tbLog.Size = new System.Drawing.Size(624, 98);
             this.tbLog.TabIndex = 6;
             // 
-            // btnDownloadAll
+            // btnDownloadAllTeacherFiles
             // 
-            this.btnDownloadAll.Location = new System.Drawing.Point(28, 362);
-            this.btnDownloadAll.Name = "btnDownloadAll";
-            this.btnDownloadAll.Size = new System.Drawing.Size(118, 75);
-            this.btnDownloadAll.TabIndex = 7;
-            this.btnDownloadAll.Text = "Завантажити всі файли з сервера";
-            this.btnDownloadAll.UseVisualStyleBackColor = true;
+            this.btnDownloadAllTeacherFiles.Location = new System.Drawing.Point(56, 362);
+            this.btnDownloadAllTeacherFiles.Name = "btnDownloadAllTeacherFiles";
+            this.btnDownloadAllTeacherFiles.Size = new System.Drawing.Size(118, 75);
+            this.btnDownloadAllTeacherFiles.TabIndex = 7;
+            this.btnDownloadAllTeacherFiles.Text = "Завантажити всі файли з сервера";
+            this.btnDownloadAllTeacherFiles.UseVisualStyleBackColor = true;
+            this.btnDownloadAllTeacherFiles.Click += new System.EventHandler(this.btnDownloadAllTeacherFiles_Click);
             // 
             // lbTaskFiles
             // 
             this.lbTaskFiles.FormattingEnabled = true;
+            this.lbTaskFiles.HorizontalScrollbar = true;
             this.lbTaskFiles.ItemHeight = 20;
             this.lbTaskFiles.Location = new System.Drawing.Point(28, 100);
             this.lbTaskFiles.Name = "lbTaskFiles";
-            this.lbTaskFiles.Size = new System.Drawing.Size(242, 244);
+            this.lbTaskFiles.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbTaskFiles.Size = new System.Drawing.Size(300, 244);
             this.lbTaskFiles.TabIndex = 8;
             // 
-            // btnDownloadChosen
+            // btnDownloadChosenTeacherFiles
             // 
-            this.btnDownloadChosen.Location = new System.Drawing.Point(152, 362);
-            this.btnDownloadChosen.Name = "btnDownloadChosen";
-            this.btnDownloadChosen.Size = new System.Drawing.Size(118, 75);
-            this.btnDownloadChosen.TabIndex = 9;
-            this.btnDownloadChosen.Text = "Завантажити обрані файли ";
-            this.btnDownloadChosen.UseVisualStyleBackColor = true;
+            this.btnDownloadChosenTeacherFiles.Location = new System.Drawing.Point(180, 362);
+            this.btnDownloadChosenTeacherFiles.Name = "btnDownloadChosenTeacherFiles";
+            this.btnDownloadChosenTeacherFiles.Size = new System.Drawing.Size(118, 75);
+            this.btnDownloadChosenTeacherFiles.TabIndex = 9;
+            this.btnDownloadChosenTeacherFiles.Text = "Завантажити обрані файли ";
+            this.btnDownloadChosenTeacherFiles.UseVisualStyleBackColor = true;
+            this.btnDownloadChosenTeacherFiles.Click += new System.EventHandler(this.btnDownloadChosenTeacherFiles_Click);
             // 
             // lbUsersFiles
             // 
             this.lbUsersFiles.FormattingEnabled = true;
+            this.lbUsersFiles.HorizontalScrollbar = true;
             this.lbUsersFiles.ItemHeight = 20;
-            this.lbUsersFiles.Location = new System.Drawing.Point(313, 100);
+            this.lbUsersFiles.Location = new System.Drawing.Point(365, 100);
             this.lbUsersFiles.Name = "lbUsersFiles";
-            this.lbUsersFiles.Size = new System.Drawing.Size(242, 244);
+            this.lbUsersFiles.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lbUsersFiles.Size = new System.Drawing.Size(300, 244);
             this.lbUsersFiles.TabIndex = 10;
             // 
             // lblTeachersFiles
             // 
             this.lblTeachersFiles.AutoSize = true;
             this.lblTeachersFiles.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTeachersFiles.Location = new System.Drawing.Point(49, 53);
+            this.lblTeachersFiles.Location = new System.Drawing.Point(87, 53);
             this.lblTeachersFiles.Name = "lblTeachersFiles";
             this.lblTeachersFiles.Size = new System.Drawing.Size(150, 28);
             this.lblTeachersFiles.TabIndex = 11;
@@ -162,7 +172,7 @@ namespace ftp_poppy_client
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(365, 53);
+            this.label1.Location = new System.Drawing.Point(450, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 28);
             this.label1.TabIndex = 12;
@@ -170,25 +180,27 @@ namespace ftp_poppy_client
             // 
             // btnDownloadChosenUserFiles
             // 
-            this.btnDownloadChosenUserFiles.Location = new System.Drawing.Point(437, 362);
+            this.btnDownloadChosenUserFiles.Location = new System.Drawing.Point(519, 362);
             this.btnDownloadChosenUserFiles.Name = "btnDownloadChosenUserFiles";
             this.btnDownloadChosenUserFiles.Size = new System.Drawing.Size(118, 75);
             this.btnDownloadChosenUserFiles.TabIndex = 14;
             this.btnDownloadChosenUserFiles.Text = "Завантажити обрані файли ";
             this.btnDownloadChosenUserFiles.UseVisualStyleBackColor = true;
+            this.btnDownloadChosenUserFiles.Click += new System.EventHandler(this.btnDownloadChosenUserFiles_Click);
             // 
             // btnDownloadAllUserFiles
             // 
-            this.btnDownloadAllUserFiles.Location = new System.Drawing.Point(313, 362);
+            this.btnDownloadAllUserFiles.Location = new System.Drawing.Point(395, 362);
             this.btnDownloadAllUserFiles.Name = "btnDownloadAllUserFiles";
             this.btnDownloadAllUserFiles.Size = new System.Drawing.Size(118, 75);
             this.btnDownloadAllUserFiles.TabIndex = 13;
             this.btnDownloadAllUserFiles.Text = "Завантажити всі файли з сервера";
             this.btnDownloadAllUserFiles.UseVisualStyleBackColor = true;
+            this.btnDownloadAllUserFiles.Click += new System.EventHandler(this.btnDownloadAllUserFiles_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(152, 481);
+            this.btnRefresh.Location = new System.Drawing.Point(166, 557);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(118, 75);
             this.btnRefresh.TabIndex = 15;
@@ -196,20 +208,50 @@ namespace ftp_poppy_client
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(42, 485);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(308, 20);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Папка для завантажених з сервера файлів:";
+            // 
+            // tbDownloadsPath
+            // 
+            this.tbDownloadsPath.Location = new System.Drawing.Point(365, 482);
+            this.tbDownloadsPath.Name = "tbDownloadsPath";
+            this.tbDownloadsPath.ReadOnly = true;
+            this.tbDownloadsPath.Size = new System.Drawing.Size(452, 27);
+            this.tbDownloadsPath.TabIndex = 17;
+            // 
+            // btnChangeDownloadsPath
+            // 
+            this.btnChangeDownloadsPath.Location = new System.Drawing.Point(833, 481);
+            this.btnChangeDownloadsPath.Name = "btnChangeDownloadsPath";
+            this.btnChangeDownloadsPath.Size = new System.Drawing.Size(94, 29);
+            this.btnChangeDownloadsPath.TabIndex = 18;
+            this.btnChangeDownloadsPath.Text = "Змінити";
+            this.btnChangeDownloadsPath.UseVisualStyleBackColor = true;
+            this.btnChangeDownloadsPath.Click += new System.EventHandler(this.btnChangeDownloadsPath_Click);
+            // 
             // MainFormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 575);
+            this.ClientSize = new System.Drawing.Size(945, 657);
+            this.Controls.Add(this.btnChangeDownloadsPath);
+            this.Controls.Add(this.tbDownloadsPath);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDownloadChosenUserFiles);
             this.Controls.Add(this.btnDownloadAllUserFiles);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTeachersFiles);
             this.Controls.Add(this.lbUsersFiles);
-            this.Controls.Add(this.btnDownloadChosen);
+            this.Controls.Add(this.btnDownloadChosenTeacherFiles);
             this.Controls.Add(this.lbTaskFiles);
-            this.Controls.Add(this.btnDownloadAll);
+            this.Controls.Add(this.btnDownloadAllTeacherFiles);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.pnDragDrop);
@@ -234,15 +276,19 @@ namespace ftp_poppy_client
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label lblConnection;
         private System.Windows.Forms.TextBox tbLog;
-        private System.Windows.Forms.Button btnDownloadAll;
+        private System.Windows.Forms.Button btnDownloadAllTeacherFiles;
         private System.Windows.Forms.ListBox lbTaskFiles;
-        private System.Windows.Forms.Button btnDownloadChosen;
+        private System.Windows.Forms.Button btnDownloadChosenTeacherFiles;
         private System.Windows.Forms.ListBox lbUsersFiles;
         private System.Windows.Forms.Label lblTeachersFiles;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDownloadChosenUserFiles;
         private System.Windows.Forms.Button btnDownloadAllUserFiles;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbDownloadsPath;
+        private System.Windows.Forms.Button btnChangeDownloadsPath;
+        private System.Windows.Forms.FolderBrowserDialog fbdDownloadsPath;
     }
 }
 
