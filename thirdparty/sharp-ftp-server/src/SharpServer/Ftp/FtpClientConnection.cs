@@ -213,7 +213,7 @@ namespace SharpServer.Ftp
                         logEntry.CSUriStem = "******";
                         break;
                     case "CWD":
-                        response = ChangeWorkingDirectory(cmd.Arguments.FirstOrDefault());
+                        response = ChangeWorkingDirectory(cmd.RawArguments);
                         break;
                     case "CDUP":
                         response = ChangeWorkingDirectory("..");
@@ -249,30 +249,30 @@ namespace SharpServer.Ftp
                         response = Mode(cmd.Arguments.FirstOrDefault());
                         break;
                     case "RNFR":
-                        _renameFrom = cmd.Arguments.FirstOrDefault();
+                        _renameFrom = cmd.RawArguments;
                         response = GetResponse(FtpResponses.RENAME_FROM);
                         break;
                     case "RNTO":
-                        response = Rename(_renameFrom, cmd.Arguments.FirstOrDefault());
+                        response = Rename(_renameFrom, cmd.RawArguments);
                         break;
                     case "DELE":
-                        response = Delete(cmd.Arguments.FirstOrDefault());
+                        response = Delete(cmd.RawArguments);
                         break;
                     case "RMD":
-                        response = RemoveDir(cmd.Arguments.FirstOrDefault());
+                        response = RemoveDir(cmd.RawArguments);
                         break;
                     case "MKD":
-                        response = CreateDir(cmd.Arguments.FirstOrDefault());
+                        response = CreateDir(cmd.RawArguments);
                         break;
                     case "PWD":
                         response = PrintWorkingDirectory();
                         break;
                     case "RETR":
-                        response = Retrieve(cmd.Arguments.FirstOrDefault());
+                        response = Retrieve(cmd.RawArguments);
                         logEntry.Date = DateTime.Now;
                         break;
                     case "STOR":
-                        response = Store(cmd.Arguments.FirstOrDefault());
+                        response = Store(cmd.RawArguments);
                         logEntry.Date = DateTime.Now;
                         break;
                     case "STOU":
@@ -280,11 +280,11 @@ namespace SharpServer.Ftp
                         logEntry.Date = DateTime.Now;
                         break;
                     case "APPE":
-                        response = Append(cmd.Arguments.FirstOrDefault());
+                        response = Append(cmd.RawArguments);
                         logEntry.Date = DateTime.Now;
                         break;
                     case "LIST":
-                        response = List(cmd.Arguments.FirstOrDefault() ?? _currentDirectory);
+                        response = List(cmd.RawArguments ?? _currentDirectory);
                         logEntry.Date = DateTime.Now;
                         break;
                     case "SYST":
@@ -300,7 +300,7 @@ namespace SharpServer.Ftp
                         response = GetResponse(FtpResponses.OK);
                         break;
                     case "NLST":
-                        response = NameList(cmd.Arguments.FirstOrDefault() ?? _currentDirectory);
+                        response = NameList(cmd.RawArguments ?? _currentDirectory);
                         break;
                     case "SITE":
                         response = GetResponse(FtpResponses.NOT_IMPLEMENTED);
@@ -336,10 +336,10 @@ namespace SharpServer.Ftp
 
                     // Extensions defined by rfc 3659
                     case "MDTM":
-                        response = FileModificationTime(cmd.Arguments.FirstOrDefault());
+                        response = FileModificationTime(cmd.RawArguments);
                         break;
                     case "SIZE":
-                        response = FileSize(cmd.Arguments.FirstOrDefault());
+                        response = FileSize(cmd.RawArguments);
                         break;
 
                     // Extensions defined by rfc 2428
@@ -1029,6 +1029,8 @@ namespace SharpServer.Ftp
             {
                 current = "/";
             }
+            //Encapsulate working directory with ". Needed in order to support folders with spaces in them (in Filezilla and other FTP Clients).
+           else current = "\"" + current + "\"";
 
             return GetResponse(FtpResponses.CURRENT_DIRECTORY.SetData(current));
         }

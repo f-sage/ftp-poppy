@@ -125,7 +125,7 @@ namespace ftp_poppy_client
         void UploadFile(string filePath)
         {
             string result;
-            string remotePath= Path.GetFileName(filePath);
+            string remotePath = Path.GetFileName(filePath);
             if(ftpClient.UploadFile(filePath, remotePath) == FtpStatus.Success)
             {
                 result = $"Файл \"{remotePath}\" успішно завантажено на сервер";
@@ -174,8 +174,8 @@ namespace ftp_poppy_client
             foreach(string file in filenames)
             {
                 string filename = file.TrimStart('/');
-                FtpStatus result = client.DownloadFile(
-                    Path.Combine(tbDownloadsPath.Text, filename), file);
+                string localPath = Path.Combine(tbDownloadsPath.Text, filename);
+                FtpStatus result = client.DownloadFile(localPath, filename);   
                 if (result == FtpStatus.Success)
                 {
                     AddMessage($"Успішно отримано файл \"{file}\" з сервера");

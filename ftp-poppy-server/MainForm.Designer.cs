@@ -139,7 +139,7 @@ namespace ftp_poppy_server
             // 
             // btnPathOpen
             // 
-            this.btnPathOpen.Location = new System.Drawing.Point(625, 81);
+            this.btnPathOpen.Location = new System.Drawing.Point(639, 119);
             this.btnPathOpen.Name = "btnPathOpen";
             this.btnPathOpen.Size = new System.Drawing.Size(94, 50);
             this.btnPathOpen.TabIndex = 7;
@@ -260,7 +260,6 @@ namespace ftp_poppy_server
             this.pnSettings.Controls.Add(this.btnAddGroup);
             this.pnSettings.Controls.Add(this.cmbGroup);
             this.pnSettings.Controls.Add(this.lblGroup);
-            this.pnSettings.Controls.Add(this.btnPathOpen);
             this.pnSettings.Controls.Add(this.btnPathChange);
             this.pnSettings.Controls.Add(this.tbPath);
             this.pnSettings.Controls.Add(this.lblPath);
@@ -268,7 +267,7 @@ namespace ftp_poppy_server
             this.pnSettings.Controls.Add(this.nudPort);
             this.pnSettings.Location = new System.Drawing.Point(16, 38);
             this.pnSettings.Name = "pnSettings";
-            this.pnSettings.Size = new System.Drawing.Size(791, 202);
+            this.pnSettings.Size = new System.Drawing.Size(617, 202);
             this.pnSettings.TabIndex = 12;
             // 
             // MainForm
@@ -279,6 +278,7 @@ namespace ftp_poppy_server
             this.Controls.Add(this.pnSettings);
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.tbLog);
+            this.Controls.Add(this.btnPathOpen);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;

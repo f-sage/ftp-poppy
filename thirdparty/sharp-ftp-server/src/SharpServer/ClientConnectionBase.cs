@@ -40,7 +40,7 @@ namespace SharpServer
             Command c = new Command();
             c.Raw = line;
 
-            string[] command = line.Split(' ');
+            string[] command = line.Split(' ');         
 
             string cmd = command[0].ToUpperInvariant();
 
