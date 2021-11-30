@@ -340,5 +340,9 @@ namespace ftp_poppy_server
             }
         }
 
+        private void tsmiAbout_Click(object sender, EventArgs e)
+        {
+            new AboutForm().Show();
+        }
     }
 }

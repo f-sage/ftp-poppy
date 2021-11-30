@@ -202,21 +202,21 @@ namespace ftp_poppy_server
             // tsmiStartServer
             // 
             this.tsmiStartServer.Name = "tsmiStartServer";
-            this.tsmiStartServer.Size = new System.Drawing.Size(214, 26);
+            this.tsmiStartServer.Size = new System.Drawing.Size(224, 26);
             this.tsmiStartServer.Text = "Запустити сервер";
             this.tsmiStartServer.Click += new System.EventHandler(this.tsmiStartServer_Click);
             // 
             // tsmiStopServer
             // 
             this.tsmiStopServer.Name = "tsmiStopServer";
-            this.tsmiStopServer.Size = new System.Drawing.Size(214, 26);
+            this.tsmiStopServer.Size = new System.Drawing.Size(224, 26);
             this.tsmiStopServer.Text = "Зупинити сервер";
             this.tsmiStopServer.Click += new System.EventHandler(this.tsmiStopServer_Click);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(214, 26);
+            this.tsmiExit.Size = new System.Drawing.Size(224, 26);
             this.tsmiExit.Text = "Вихід";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -231,6 +231,7 @@ namespace ftp_poppy_server
             // 
             // tsmiGroupList
             // 
+            this.tsmiGroupList.Enabled = false;
             this.tsmiGroupList.Name = "tsmiGroupList";
             this.tsmiGroupList.Size = new System.Drawing.Size(271, 26);
             this.tsmiGroupList.Text = "Список груп";
@@ -254,6 +255,7 @@ namespace ftp_poppy_server
             this.tsmiAbout.Name = "tsmiAbout";
             this.tsmiAbout.Size = new System.Drawing.Size(124, 24);
             this.tsmiAbout.Text = "Про програму";
+            this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
             // pnSettings
             // 
