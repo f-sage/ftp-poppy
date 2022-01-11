@@ -29,7 +29,7 @@ namespace ftp_poppy_client
             settings.GetFromFile();
             ftpClient = new FtpClient();
 
-            tbDownloadsPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            tbDownloadsPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             btnConnect_Click(new object(), new EventArgs());
         }
 
@@ -149,10 +149,17 @@ namespace ftp_poppy_client
         void GetFiles(FtpClient client, ListBox listBox)
         {
             client.Connect();
-            FtpListItem[] files = client.GetListing("");
+
+            //FtpListItem[] files = client.GetListing("");
+            //foreach (var item in files)
+            //{
+            //    listBox.Items.Add(item.FullName);
+            //}
+
+            string[] files = client.GetNameListing("");
             foreach (var item in files)
             {
-                listBox.Items.Add(item.FullName);
+                listBox.Items.Add(item);
             }
         }
 
